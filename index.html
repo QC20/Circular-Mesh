@@ -3,29 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Custom Shaders</title>
+    <title>Circle Animation</title>
     <link rel="stylesheet" href="src/styles/styles.css">
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            width: 100%;
-            height: 100%;
-        }
-        canvas {
-            display: block;
-        }
-    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
 </head>
 <body>
-    <canvas id="canvas"></canvas>
-
-    <!-- Add required dependencies -->
-    <script src="https://cdn.skypack.dev/wtc-math"></script>
-    <script src="https://cdn.skypack.dev/gif.js"></script>
-
-    <!-- Set up sketch.js as a module -->
-    <script type="module" src="src/javascript/sketch.js"></script>
+    <div class="container">
+        <div id="p5sketch"></div>
+    </div>
+    <script src="src/javascript/sketch.js"></script>
 </body>
 </html>
