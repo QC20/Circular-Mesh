@@ -3,13 +3,13 @@ var container,
   scene,
   camera,
   mesh,
-  material,
   start = Date.now(),
   fov = 30;
 
-window.addEventListener('load', function() {
+window.addEventListener( 'load', function() {
+
   // grab the container from the DOM
-  container = document.getElementById("container");
+  container = document.getElementById( "container" );
 
   // create a scene
   scene = new THREE.Scene();
@@ -24,46 +24,49 @@ window.addEventListener('load', function() {
   );
   camera.position.z = 100;
 
-  // create a shader material
-  material = new THREE.ShaderMaterial({
+  // create a wireframe material
+  material = new THREE.MeshBasicMaterial( {
+    color: 0xb7ff00,
+    wireframe: true
+  } );
+
+  THREE.ImageUtils.crossOrigin = '';
+
+  material = new THREE.ShaderMaterial( {
+
     uniforms: {
       time: { // float initialized to 0
         type: "f",
         value: 0.0
       }
     },
-    vertexShader: document.getElementById('vertexShader').textContent,
-    fragmentShader: document.getElementById('fragmentShader').textContent
-  });
+    vertexShader: document.getElementById( 'vertexShader' ).textContent,
+    fragmentShader: document.getElementById( 'fragmentShader' ).textContent
+
+  } );
 
   // create a sphere and assign the material
   mesh = new THREE.Mesh(
-    new THREE.IcosahedronGeometry(20, 4),
+    new THREE.IcosahedronGeometry( 20, 4 ),
     material
   );
-  scene.add(mesh);
+  scene.add( mesh );
 
   // create the renderer and attach it to the DOM
   renderer = new THREE.WebGLRenderer();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.setPixelRatio(window.devicePixelRatio);
-  container.appendChild(renderer.domElement);
+  renderer.setSize( window.innerWidth, window.innerHeight );
+  renderer.setPixelRatio( window.devicePixelRatio );
 
-  // Add window resize listener
-  window.addEventListener('resize', onWindowResize, false);
+  container.appendChild( renderer.domElement );
 
   render();
-});
+
+} );
 
 function render() {
-  material.uniforms['time'].value = .00025 * (Date.now() - start);
-  // let there be light
-  renderer.render(scene, camera);
-  requestAnimationFrame(render);
-}
+  material.uniforms[ 'time' ].value = .00025 * ( Date.now() - start );
 
-function onWindowResize() {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
+  // let there be light
+  renderer.render( scene, camera );
+  requestAnimationFrame( render );
 }
